@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Primary Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Payroll Caculator | Free Payroll Calculator Web App</title>
+  <meta name="description" content="Use our advanced payroll caculator web app to accurately calculate payroll with tax deductions, overtime, bonus, and more.">
+  <meta name="keywords" content="payroll caculator, payroll calculator, advanced payroll caculator, tax calculator, payroll deductions">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/payroll-caculator" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Advanced Payroll Caculator | Payroll Calculator Web App">
+  <meta property="og:description" content="Calculate your payroll accurately with our advanced payroll caculator that factors in tax deductions, overtime, bonuses, and more.">
+  <meta property="og:image" content="https://yourdomain.com/images/payroll-caculator.jpg">
+  <meta property="og:url" content="https://yourdomain.com/payroll-caculator">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Advanced Payroll Caculator | Payroll Calculator Web App">
+  <meta name="twitter:description" content="Calculate your payroll accurately with our advanced payroll caculator.">
+  <meta name="twitter:image" content="https://yourdomain.com/images/payroll-caculator.jpg">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Base Reset and Body Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f2f2f2;
+      color: #333;
+      padding: 1rem;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Form Groups */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    /* Radio Button Group */
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+    .radio-group input {
+      cursor: pointer;
+    }
+
+    /* Button Styles */
+    button {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 20px;
+      background-color: #3498db;
+      border: none;
+      color: #fff;
+      font-size: 1.125rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    /* Results Section */
+    .results {
+      margin-top: 2rem;
+      border-top: 1px solid #ddd;
+      padding-top: 1rem;
+    }
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .result-item.total {
+      font-weight: 700;
+      font-size: 1.25rem;
+      border-top: 2px solid #ccc;
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      color: #777;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+      button {
+        padding: 0.75rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Main H1 for indexing -->
+    <h1>Advanced Payroll Caculator</h1>
+    <form id="payrollForm">
+      <!-- Payment Type Selection -->
+      <div class="input-group">
+        <label for="paymentType">Payment Type:</label>
+        <div class="radio-group" id="paymentType">
+          <label>
+            <input type="radio" name="paymentType" value="hourly" checked>
+            Hourly
+          </label>
+          <label>
+            <input type="radio" name="paymentType" value="salary">
+            Salary
+          </label>
+        </div>
+      </div>
+
+      <!-- Hourly Fields -->
+      <div id="hourlyFields">
+        <div class="input-group">
+          <label for="hourlyRate">Hourly Rate ($):</label>
+          <input type="number" id="hourlyRate" placeholder="e.g., 20" step="0.01" min="0">
+        </div>
+        <div class="input-group">
+          <label for="hoursWorked">Regular Hours Worked:</label>
+          <input type="number" id="hoursWorked" placeholder="e.g., 80" min="0">
+        </div>
+        <div class="input-group">
+          <label for="overtimeHours">Overtime Hours Worked:</label>
+          <input type="number" id="overtimeHours" placeholder="e.g., 10" min="0">
+        </div>
+      </div>
+
+      <!-- Salary Field (Hidden by default) -->
+      <div id="salaryField" style="display: none;">
+        <div class="input-group">
+          <label for="salary">Gross Salary for Pay Period ($):</label>
+          <input type="number" id="salary" placeholder="e.g., 4000" step="0.01" min="0">
+        </div>
+      </div>
+
+      <!-- Bonus Field -->
+      <div class="input-group">
+        <label for="bonus">Bonus ($):</label>
+        <input type="number" id="bonus" placeholder="Optional bonus amount" step="0.01" min="0">
+      </div>
+
+      <!-- Toggle Tax Settings -->
+      <button type="button" id="toggleSettings">Show Tax Settings</button>
+      <div id="taxSettings" style="display: none; margin-top: 1rem;">
+        <h2>Tax Settings</h2>
+        <div class="input-group">
+          <label for="federalTaxRate">Federal Tax Rate (%):</label>
+          <input type="number" id="federalTaxRate" value="12" step="0.01" min="0">
+        </div>
+        <div class="input-group">
+          <label for="stateTaxRate">State Tax Rate (%):</label>
+          <input type="number" id="stateTaxRate" value="5" step="0.01" min="0">
+        </div>
+        <div class="input-group">
+          <label for="socialSecurityRate">Social Security Rate (%):</label>
+          <input type="number" id="socialSecurityRate" value="6.2" step="0.01" min="0">
+        </div>
+        <div class="input-group">
+          <label for="medicareRate">Medicare Rate (%):</label>
+          <input type="number" id="medicareRate" value="1.45" step="0.01" min="0">
+        </div>
+        <div class="input-group">
+          <label for="overtimeMultiplier">Overtime Multiplier:</label>
+          <input type="number" id="overtimeMultiplier" value="1.5" step="0.1" min="0">
+        </div>
+      </div>
+
+      <!-- Calculate Button -->
+      <button type="button" id="calculateButton">Calculate Payroll</button>
+    </form>
+
+    <!-- Results Section -->
+    <div class="results" id="resultsContainer" style="display: none;">
+      <h2>Payroll Details</h2>
+      <div class="result-item"><span>Gross Pay:</span> <span id="grossPay"></span></div>
+      <div class="result-item"><span>Federal Tax:</span> <span id="federalTax"></span></div>
+      <div class="result-item"><span>State Tax:</span> <span id="stateTax"></span></div>
+      <div class="result-item"><span>Social Security:</span> <span id="socialSecurity"></span></div>
+      <div class="result-item"><span>Medicare:</span> <span id="medicare"></span></div>
+      <div class="result-item total"><span>Net Pay:</span> <span id="netPay"></span></div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>
+      &copy; 2025 <a href="https://renovation.reviews">Renovation Reviews</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle between Hourly and Salary fields based on payment type selection.
+    document.querySelectorAll('input[name="paymentType"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (this.value === 'hourly') {
+          document.getElementById('hourlyFields').style.display = 'block';
+          document.getElementById('salaryField').style.display = 'none';
+        } else {
+          document.getElementById('hourlyFields').style.display = 'none';
+          document.getElementById('salaryField').style.display = 'block';
+        }
+      });
+    });
+
+    // Toggle Tax Settings section
+    document.getElementById('toggleSettings').addEventListener('click', function() {
+      const taxSettings = document.getElementById('taxSettings');
+      if (taxSettings.style.display === 'none' || taxSettings.style.display === '') {
+        taxSettings.style.display = 'block';
+        this.textContent = 'Hide Tax Settings';
+      } else {
+        taxSettings.style.display = 'none';
+        this.textContent = 'Show Tax Settings';
+      }
+    });
+
+    // Event listener for the Calculate button
+    document.getElementById('calculateButton').addEventListener('click', calculatePayroll);
+
+    function calculatePayroll() {
+      // Read tax settings from the input fields.
+      const FEDERAL_TAX_RATE = (parseFloat(document.getElementById('federalTaxRate').value) || 12) / 100;
+      const STATE_TAX_RATE = (parseFloat(document.getElementById('stateTaxRate').value) || 5) / 100;
+      const SOCIAL_SECURITY_RATE = (parseFloat(document.getElementById('socialSecurityRate').value) || 6.2) / 100;
+      const MEDICARE_RATE = (parseFloat(document.getElementById('medicareRate').value) || 1.45) / 100;
+      const OVERTIME_MULTIPLIER = parseFloat(document.getElementById('overtimeMultiplier').value) || 1.5;
+
+      // Determine the payment type and calculate gross pay.
+      const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+      let gross = 0;
+      if (paymentType === 'hourly') {
+        const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+        const hoursWorked = parseFloat(document.getElementById('hoursWorked').value) || 0;
+        const overtimeHours = parseFloat(document.getElementById('overtimeHours').value) || 0;
+        gross = (hourlyRate * hoursWorked) + (hourlyRate * OVERTIME_MULTIPLIER * overtimeHours);
+      } else {
+        const salary = parseFloat(document.getElementById('salary').value) || 0;
+        gross = salary;
+      }
+
+      // Add bonus if provided.
+      const bonus = parseFloat(document.getElementById('bonus').value) || 0;
+      gross += bonus;
+
+      // Calculate deductions.
+      const federalTax = gross * FEDERAL_TAX_RATE;
+      const stateTax = gross * STATE_TAX_RATE;
+      const socialSecurity = gross * SOCIAL_SECURITY_RATE;
+      const medicare = gross * MEDICARE_RATE;
+      const totalDeductions = federalTax + stateTax + socialSecurity + medicare;
+      const netPay = gross - totalDeductions;
+
+      // Update results in the DOM.
+      document.getElementById('grossPay').textContent = "$" + gross.toFixed(2);
+      document.getElementById('federalTax').textContent = "$" + federalTax.toFixed(2);
+      document.getElementById('stateTax').textContent = "$" + stateTax.toFixed(2);
+      document.getElementById('socialSecurity').textContent = "$" + socialSecurity.toFixed(2);
+      document.getElementById('medicare').textContent = "$" + medicare.toFixed(2);
+      document.getElementById('netPay').textContent = "$" + netPay.toFixed(2);
+
+      // Reveal the results container.
+      document.getElementById('resultsContainer').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
