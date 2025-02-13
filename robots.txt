@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://builders-toronto.github.io/payroll-calculator/sitemap.xml
